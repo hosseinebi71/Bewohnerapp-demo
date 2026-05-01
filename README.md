@@ -48,15 +48,7 @@ docker --version
 
 ## Quick Start
 
-### Windows PowerShell
-
-```powershell
-docker rm -f bewohner-demo
-docker pull ghcr.io/hosseinebi71/bewohner-app:latest
-docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
-```
-
-### macOS Terminal
+Use the same command on **Windows PowerShell**, **macOS Terminal**, or **Linux Terminal**:
 
 ```bash
 docker rm -f bewohner-demo
@@ -64,15 +56,7 @@ docker pull ghcr.io/hosseinebi71/bewohner-app:latest
 docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-### Linux Terminal
-
-```bash
-docker rm -f bewohner-demo
-docker pull ghcr.io/hosseinebi71/bewohner-app:latest
-docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
-```
-
-If Docker on Linux asks for root permissions:
+If Docker on Linux asks for root permissions, run the same commands with `sudo`:
 
 ```bash
 sudo docker rm -f bewohner-demo
