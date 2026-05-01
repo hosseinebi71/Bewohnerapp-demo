@@ -8,7 +8,7 @@
 ![Windows](https://img.shields.io/badge/Windows-Ready-0078D4?logo=windows&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-Ready-000000?logo=apple&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-Ready-FCC624?logo=linux&logoColor=black)
-![Image](https://img.shields.io/badge/Image-GHCR-orange)
+![Docker Image](https://img.shields.io/badge/Docker%20Image-Ready-orange)
 
 [Quick Start](#quick-start) · [Demo Login](#demo-login) · [Try the Workflow](#try-the-workflow) · [Troubleshooting](#troubleshooting)
 
