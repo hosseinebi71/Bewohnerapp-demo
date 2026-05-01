@@ -48,7 +48,7 @@ docker --version
 
 ## Quick Start
 
-Use the same command on **Windows PowerShell**, **macOS Terminal**, or **Linux Terminal**:
+Run the demo:
 
 ```bash
 docker rm -f bewohner-demo
@@ -56,7 +56,7 @@ docker pull ghcr.io/hosseinebi71/bewohner-app:latest
 docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-If Docker on Linux asks for root permissions, run the same commands with `sudo`:
+Linux permission issue? Use `sudo`:
 
 ```bash
 sudo docker rm -f bewohner-demo
