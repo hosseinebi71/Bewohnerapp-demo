@@ -10,7 +10,7 @@
 ![Linux](https://img.shields.io/badge/Linux-Ready-FCC624?logo=linux&logoColor=black)
 ![Docker Image](https://img.shields.io/badge/Docker%20Image-Ready-orange)
 
-[Quick Start](#quick-start) · [Demo Login](#demo-login) · [Try the Workflow](#try-the-workflow) · [Troubleshooting](#troubleshooting)
+[Quick Start](#quick-start) · [Demo Access](#demo-access) · [Try the Workflow](#try-the-workflow) · [Troubleshooting](#troubleshooting)
 
 </div>
 
@@ -20,7 +20,7 @@
 
 **BewohnerApp** is a resident communication and staff management platform for accommodation or residential environments.
 
-With the demo you can create residents, invite them into the system, send notifications, manage resident-facing content, and test the communication workflow from one admin dashboard.
+The demo starts with ready-to-test data: a temporary admin account, a sample resident, invite/activation codes, resident-facing content, and sample notifications.
 
 The demo runs from this Docker image:
 
@@ -63,12 +63,19 @@ sudo docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohn
 
 ---
 
-## Open the Demo
+## Demo Access
 
 **Admin panel**
 
 ```text
 http://127.0.0.1:8001/secure-admin-panel/
+```
+
+**Admin login**
+
+```text
+Username: demo-admin
+Password: DemoAdmin123!
 ```
 
 **Public page**
@@ -77,28 +84,13 @@ http://127.0.0.1:8001/secure-admin-panel/
 http://127.0.0.1:8001/
 ```
 
----
-
-## Demo Login
-
-The container creates a temporary admin user automatically:
-
-```text
-Username: demo-admin
-Password: DemoAdmin123!
-```
-
-You can also check the credentials in the logs:
+The container also prints the ready-to-test demo data in the logs:
 
 ```bash
 docker logs bewohner-demo
 ```
 
-On Linux with sudo:
-
-```bash
-sudo docker logs bewohner-demo
-```
+You will see the demo resident, invite code, activation code, and demo URLs there.
 
 ---
 
@@ -108,33 +100,36 @@ sudo docker logs bewohner-demo
 
 Open the admin panel and sign in with the demo admin account.
 
-From there, you can create realistic test data and explore the management side of the app.
+A sample resident is already available, so you can immediately inspect the management workflow without building everything from zero.
 
-### 2. Create a resident
+### 2. Review the demo resident
 
-Create a resident with sample details such as name, room/house information, language, email, and profile information.
+Use the pre-created resident:
 
-This resident becomes the center of the workflow: account activation, resident login, notifications, inbox messages, and confirmations.
+```text
+Resident: Mina Karimi
+PKZ: DEMO-1001
+Room: Haus A / 101
+Invite code: DEMO1001
+```
 
-### 3. Invite the resident
+This resident is connected to the demo invite flow, activation code, notifications, inbox messages, and confirmation workflow.
 
-After the resident exists, use the available invitation or activation information.
+### 3. Test invite and activation
 
-The app supports an invite-style onboarding flow where staff can give the resident an activation code, invite link, or QR-based access path depending on the screen.
+Check the container logs for the generated demo URLs:
 
-A good demo path is:
+```bash
+docker logs bewohner-demo
+```
 
-1. Create a resident.
-2. Find the resident invite or activation information.
-3. Open the invite link or use the QR/invitation code.
-4. Complete the resident activation flow.
-5. Log in as the resident and check what is available on the resident side.
+The demo output includes the invite/activation information that can be used to test resident onboarding.
 
-### 4. Send a notification
+### 4. Send or review notifications
 
-Create a notification for the resident and then check the resident inbox.
+Open the resident's notifications and review the sample messages.
 
-This shows the communication part of the system: staff can send updates, reminders, appointments, or important messages, and residents can receive them in a structured place.
+The demo includes an important notification that requires confirmation, plus an appointment-style reminder. This shows how staff can send structured updates and how residents receive them in one place.
 
 ---
 
@@ -204,6 +199,7 @@ http://127.0.0.1:8002/secure-admin-panel/
 ## Notes
 
 - The demo uses SQLite inside the container for quick local testing.
+- Demo data is created automatically when the container starts.
 - Data is temporary and resets when the container is removed.
 - The `latest` tag points to the newest published demo image.
 
@@ -237,12 +233,12 @@ Check the logs:
 docker logs bewohner-demo
 ```
 
-The demo admin credentials are printed when the container starts.
+The demo admin credentials and demo data are printed when the container starts.
 
 ---
 
 <div align="center">
 
-**BewohnerApp Demo** · Docker-first · Reviewer-friendly · Local setup in minutes
+**BewohnerApp Demo** · Docker-first · Ready-to-test data · Local setup in minutes
 
 </div>
