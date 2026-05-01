@@ -5,9 +5,9 @@
 ### Run a modern resident communication platform locally with Docker.
 
 [![Docker](https://img.shields.io/badge/Requirement-Docker%20Desktop-2496ED?logo=docker&logoColor=white)](https://www.docker.com/products/docker-desktop/)
-![Windows](https://img.shields.io/badge/Windows-PowerShell-0078D4?logo=windows&logoColor=white)
-![macOS](https://img.shields.io/badge/macOS-Terminal-000000?logo=apple&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-Terminal-FCC624?logo=linux&logoColor=black)
+![Windows](https://img.shields.io/badge/Windows-Ready-0078D4?logo=windows&logoColor=white)
+![macOS](https://img.shields.io/badge/macOS-Ready-000000?logo=apple&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-Ready-FCC624?logo=linux&logoColor=black)
 ![Image](https://img.shields.io/badge/Image-GHCR-orange)
 
 [Quick Start](#quick-start) · [Demo Login](#demo-login) · [Try the Workflow](#try-the-workflow) · [Troubleshooting](#troubleshooting)
@@ -32,13 +32,10 @@ ghcr.io/hosseinebi71/bewohner-app:latest
 
 ## Before You Start
 
-Install Docker first, then come back and run the demo.
+Install Docker and make sure it is running:
 
-- **Windows:** [Install Docker Desktop for Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
-- **macOS:** [Install Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
-- **Linux:** [Install Docker Engine for Linux](https://docs.docker.com/engine/install/)
-
-Check that Docker is available:
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows and macOS
+- [Docker Engine](https://docs.docker.com/engine/install/) for Linux
 
 ```bash
 docker --version
