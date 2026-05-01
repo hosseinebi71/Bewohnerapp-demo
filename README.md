@@ -45,21 +45,25 @@ docker --version
 
 ## Quick Start
 
-Run the demo:
+Pull the latest image:
 
 ```bash
-docker rm -f bewohner-demo
 docker pull ghcr.io/hosseinebi71/bewohner-app:latest
+```
+
+Start the demo:
+
+```bash
 docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-Linux permission issue? Use `sudo`:
+If Docker says the container name is already in use, remove the old demo container and run the start command again:
 
 ```bash
-sudo docker rm -f bewohner-demo
-sudo docker pull ghcr.io/hosseinebi71/bewohner-app:latest
-sudo docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
+docker rm -f bewohner-demo
 ```
+
+Linux permission issue? Use `sudo` with the same commands.
 
 ---
 
@@ -215,15 +219,22 @@ Make sure the Docker image is public and available:
 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-### Port is already allocated
+### Container name is already in use
 
-Stop the old container:
+Remove the old demo container and start it again:
 
 ```bash
 docker rm -f bewohner-demo
+docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-Or run it on another port, for example `8002`.
+### Port is already allocated
+
+Use another local port, for example `8002`:
+
+```bash
+docker run -d --name bewohner-demo -p 8002:8000 ghcr.io/hosseinebi71/bewohner-app:latest
+```
 
 ### Admin login does not work
 
