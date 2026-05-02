@@ -73,17 +73,14 @@ Linux permission issue? Use `sudo` with the same commands.
 
 ## Demo Accounts
 
-The demo creates three users automatically. The login details are printed in the container logs:
-
-```bash
-docker logs bewohner-demo
-```
+The demo creates three users automatically.
 
 ### Admin
 
 ```text
 URL:      http://127.0.0.1:8001/secure-admin-panel/
 Username: demo-admin
+Password: DemoAdmin123!
 ```
 
 ### Staff / Mitarbeiter
@@ -93,6 +90,7 @@ Use this account to test the staff dashboard, residents, invite codes, and messa
 ```text
 URL:      http://127.0.0.1:8001/login/
 Username: demo-staff
+Password: DemoAdmin123!
 ```
 
 After login, open:
@@ -108,12 +106,19 @@ Use this account to test the resident-facing app, inbox, appointments, confirmat
 ```text
 URL:      http://127.0.0.1:8001/resident/login/
 Username: demo-resident
+Password: DemoAdmin123!
 ```
 
 Resident home:
 
 ```text
 http://127.0.0.1:8001/
+```
+
+You can also inspect the generated demo information in the logs:
+
+```bash
+docker logs bewohner-demo
 ```
 
 ---
