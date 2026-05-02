@@ -2,7 +2,7 @@
 
 # BewohnerApp Demo
 
-### A guided Docker demo for resident communication, staff workflows, and administration.
+### Docker-based demo for resident communication, staff workflows, and administration.
 
 [![Docker](https://img.shields.io/badge/Requirement-Docker%20Desktop-2496ED?logo=docker&logoColor=white)](https://www.docker.com/products/docker-desktop/)
 ![Windows](https://img.shields.io/badge/Windows-Ready-0078D4?logo=windows&logoColor=white)
@@ -10,33 +10,31 @@
 ![Linux](https://img.shields.io/badge/Linux-Ready-FCC624?logo=linux&logoColor=black)
 ![Docker Image](https://img.shields.io/badge/Docker%20Image-GHCR-orange)
 
-[Start the Demo](#start-the-demo) · [What Happens Behind the Scenes](#what-happens-behind-the-scenes) · [Demo Accounts](#demo-accounts) · [Guided Test Flow](#guided-test-flow) · [Troubleshooting](#troubleshooting)
+[Quick Start](#quick-start) · [Demo Accounts](#demo-accounts) · [Guided Test Flow](#guided-test-flow) · [Useful Commands](#useful-commands) · [Troubleshooting](#troubleshooting)
 
 </div>
 
 ---
 
-## What this demo shows
+## Overview
 
-**BewohnerApp** is a web platform for residential/accommodation environments where staff need to manage residents, send information, handle appointments, and provide a simple resident-facing app.
+**BewohnerApp** is a web platform for residential/accommodation environments. It helps staff manage residents, send messages, share appointments, provide resident-facing information, and support onboarding through invite codes.
 
-This public demo is designed for reviewers, employers, and technical evaluators. It lets you test the product without cloning the private source code and without setting up Python, Poetry, a database, or environment variables manually.
+This public repository is a **Docker demo**. You can test the app without cloning the private source code and without setting up Python, Poetry, a database, or environment variables.
 
-The demo includes three realistic roles:
+The demo includes three roles:
 
-| Role | What you can review |
+| Role | What it shows |
 | --- | --- |
-| **Admin** | Full administration area and backend data structure |
-| **Staff / Mitarbeiter** | Daily operational dashboard, residents, invite codes, messages, notifications, and content management |
-| **Resident / Bewohner** | Resident-facing login, inbox, appointments, confirmations, and public content |
+| **Admin** | System administration and backend data structure |
+| **Staff / Mitarbeiter** | Daily staff dashboard, residents, messages, invite codes, notifications, and content |
+| **Resident / Bewohner** | Resident login, inbox, appointments, confirmations, and public information |
 
-The demo runs from this published Docker image:
+Docker image:
 
 ```text
 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
-
-The source repository remains private. The image contains a runnable demo build with prepared demo data.
 
 ---
 
@@ -47,132 +45,80 @@ Install Docker and make sure it is running:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows and macOS
 - [Docker Engine](https://docs.docker.com/engine/install/) for Linux
 
-Check that Docker is available:
+Check Docker:
 
 ```bash
 docker --version
 ```
 
-If Docker is installed correctly, you should see a version number.
-
 ---
 
-## Start the demo
+## Quick Start
 
-### 1. Download the demo image
+### 1. Pull the demo image
 
 ```bash
 docker pull ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-What this does:
+This downloads the ready-to-run demo image from GitHub Container Registry.
 
-- downloads the latest prebuilt BewohnerApp demo image from GitHub Container Registry
-- avoids any local source-code setup
-- reuses cached Docker layers if you have already pulled the image before
+Approximate time:
 
-Why this step can take a little time:
-
-- on the first run, Docker needs to download the full image
-- the image contains the web application, Python runtime, production dependencies, static files, and startup scripts
-- later pulls are usually faster because Docker only downloads changed layers
+- first download: usually **1-5 minutes**, depending on internet speed
+- later downloads: usually faster, because Docker reuses cached layers
 
 ---
 
-### 2. Start the container
+### 2. Start the demo container
 
 ```bash
 docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-What this does:
+This creates and starts a local container named `bewohner-demo`.
 
-- creates a container named `bewohner-demo`
-- starts the application in the background
-- maps the app from the container port `8000` to your local browser port `8001`
-- prepares the local demo environment automatically
+Behind the scenes, the container:
 
-After this command, open:
+- starts the web application
+- maps container port `8000` to your local browser port `8001`
+- prepares a temporary SQLite demo database
+- creates demo users, residents, messages, appointments, invite data, and staff permissions
+
+Approximate startup time after the image is already downloaded:
+
+- usually **10-30 seconds**
+- on slower machines, allow up to **1 minute**
+
+Then open:
 
 ```text
 http://127.0.0.1:8001/
 ```
 
-The first startup may take a few seconds. During that time the container is preparing the demo database, users, sample residents, messages, permissions, and resident-facing content.
-
 ---
 
-### 3. Follow the startup progress
+### 3. Check startup logs
 
 ```bash
 docker logs -f bewohner-demo
 ```
 
-What this shows:
+Use this if the app does not open immediately or if you want to see the generated demo information.
 
-- whether the app started successfully
-- demo user creation
-- generated demo data
-- invite/demo information
-- any startup errors, if something went wrong
-
-You can stop following the logs with:
+Stop watching logs with:
 
 ```text
 CTRL + C
 ```
 
-The container will continue running.
+The demo keeps running.
 
 ---
 
-## What happens behind the scenes
-
-When you run the demo container, Docker is not just opening a static page. The container starts a real web application with a prepared demo state.
-
-In simplified form, this is what happens:
-
-1. **The application runtime starts**
-   - the container launches the BewohnerApp web server
-   - static files are served from inside the image
-   - the app listens internally on port `8000`
-
-2. **The demo database is prepared**
-   - the demo uses SQLite inside the container for fast local testing
-   - the database is temporary and belongs only to this container
-   - removing the container resets the demo state
-
-3. **Demo accounts are created**
-   - admin user
-   - staff user
-   - resident user
-
-4. **Rich demo content is seeded**
-   - sample resident profile
-   - room and PKZ/demo information
-   - invite code
-   - inbox messages
-   - appointment messages
-   - app/content sections
-   - notification/help/contact examples
-   - staff dashboard permissions
-
-5. **The reviewer can test three perspectives**
-   - admin controls the system
-   - staff handles daily operations
-   - resident sees the simplified end-user experience
-
-This is why the first run can feel slower than opening a simple website: the demo is preparing a realistic product state, not just rendering a landing page.
-
----
-
-## Demo accounts
-
-All demo users are created automatically when the container starts.
+## Demo Accounts
 
 ### Admin
-
-Use this account to inspect the backend/admin side.
 
 ```text
 URL:      http://127.0.0.1:8001/secure-admin-panel/
@@ -180,17 +126,11 @@ Username: demo-admin
 Password: DemoAdmin123!
 ```
 
-What to look for:
-
-- data models and administration structure
-- users, residents, messages, notifications, and content-related data
-- how the product is organized from the system/admin perspective
+Use this to inspect the backend/admin side: users, residents, messages, notifications, and content-related data.
 
 ---
 
 ### Staff / Mitarbeiter
-
-Use this account to test the operational staff dashboard.
 
 ```text
 URL:      http://127.0.0.1:8001/login/
@@ -204,22 +144,11 @@ After login, open:
 http://127.0.0.1:8001/staff/
 ```
 
-What to look for:
-
-- resident overview
-- staff dashboard navigation
-- resident communication workflow
-- invite code/onboarding support
-- messages and appointment-related content
-- notification and help/contact examples
-
-This role is important because it shows the daily workflow of the application, not just the technical admin panel.
+Use this to review the operational workflow: resident management, invite codes, messages, appointments, notifications, and help/contact examples.
 
 ---
 
 ### Resident / Bewohner
-
-Use this account to test the resident-facing experience.
 
 ```text
 URL:      http://127.0.0.1:8001/resident/login/
@@ -233,92 +162,34 @@ Resident home:
 http://127.0.0.1:8001/
 ```
 
-What to look for:
-
-- simple resident login flow
-- inbox / Posteingang
-- appointments / Termine
-- important message confirmations
-- resident-facing content sections
-- how information is presented to non-technical users
+Use this to review the resident-facing experience: inbox, appointments, confirmations, and public content sections.
 
 ---
 
-## Guided test flow
+## Guided Test Flow
 
-For the best review experience, test the demo in this order.
+For a clear review, test the app in this order:
 
-### Step 1: Confirm the container is running
+1. **Resident app**
+   - open `http://127.0.0.1:8001/`
+   - log in as `demo-resident`
+   - check inbox, appointments, confirmations, and content sections
 
-```bash
-docker ps
-```
+2. **Staff dashboard**
+   - log in as `demo-staff`
+   - open `http://127.0.0.1:8001/staff/`
+   - review residents, messages, invite codes, notifications, and staff workflow
 
-You should see a container named `bewohner-demo`.
-
-This confirms that Docker has started the app and mapped it to your local machine.
-
----
-
-### Step 2: Open the resident app
-
-Open:
-
-```text
-http://127.0.0.1:8001/
-```
-
-This shows the public/resident-facing entry point. Start here to understand what the end user sees.
-
-Then log in as `demo-resident` and check inbox, appointments, and content sections.
+3. **Admin panel**
+   - open `http://127.0.0.1:8001/secure-admin-panel/`
+   - log in as `demo-admin`
+   - inspect the backend structure and seeded demo data
 
 ---
 
-### Step 3: Open the staff dashboard
+## Demo Data
 
-Log in at:
-
-```text
-http://127.0.0.1:8001/login/
-```
-
-Then open:
-
-```text
-http://127.0.0.1:8001/staff/
-```
-
-This is where the operational value of the app becomes clearer: staff can work with resident records, communication, invite codes, messages, and prepared demo data.
-
----
-
-### Step 4: Open the admin panel
-
-Open:
-
-```text
-http://127.0.0.1:8001/secure-admin-panel/
-```
-
-Log in as `demo-admin`.
-
-This lets you inspect the structure behind the product: users, residents, seeded data, and administration models.
-
----
-
-### Step 5: Inspect generated demo information
-
-```bash
-docker logs bewohner-demo
-```
-
-Use this when you want to see what was created during startup, especially invite/demo information.
-
----
-
-## Demo data
-
-The demo container creates ready-to-test data automatically, including:
+The container creates ready-to-test data automatically:
 
 ```text
 Resident: Mina Karimi
@@ -327,22 +198,13 @@ Room: Haus A / 101
 Invite code: DEMO1001
 ```
 
-It also creates:
+It also creates sample inbox messages, appointment messages, content sections, notification examples, help/contact sample data, and staff dashboard access permissions.
 
-- demo admin, staff, and resident users
-- resident profile data
-- sample inbox messages
-- appointment messages
-- app/content sections
-- notification examples
-- help/contact sample data
-- staff dashboard access permissions
-
-This means reviewers do not need to create data from scratch before understanding the app.
+The data is temporary and resets when the container is removed.
 
 ---
 
-## Useful commands
+## Useful Commands
 
 Check whether the container is running:
 
@@ -368,7 +230,7 @@ Stop and remove the demo container:
 docker rm -f bewohner-demo
 ```
 
-Restart from a fresh container:
+Start fresh:
 
 ```bash
 docker rm -f bewohner-demo
@@ -378,9 +240,9 @@ docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-ap
 
 ---
 
-## Port information
+## Port Information
 
-The start command uses:
+The command uses:
 
 ```text
 -p 8001:8000
@@ -388,10 +250,10 @@ The start command uses:
 
 That means:
 
-- `8000` is the internal application port inside Docker
-- `8001` is the local port you open in your browser
+- `8000` is the internal app port inside Docker
+- `8001` is the local browser port on your machine
 
-If port `8001` is already busy, use another local port, for example `8002`:
+If port `8001` is busy, use another local port:
 
 ```bash
 docker run -d --name bewohner-demo -p 8002:8000 ghcr.io/hosseinebi71/bewohner-app:latest
@@ -402,107 +264,62 @@ Then open:
 ```text
 http://127.0.0.1:8002/
 ```
-
----
-
-## Resetting the demo
-
-The demo data lives inside the container. To reset everything, remove the container and start again:
-
-```bash
-docker rm -f bewohner-demo
-docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
-```
-
-This gives you a fresh demo state.
 
 ---
 
 ## Troubleshooting
 
-### Docker says the container name is already in use
-
-A previous demo container already exists. Remove it and start again:
+### Container name is already in use
 
 ```bash
 docker rm -f bewohner-demo
 docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
----
+### Port is already allocated
 
-### Docker says the port is already allocated
-
-Another application is already using port `8001`. Use a different local port:
+Use another local port, for example `8002`:
 
 ```bash
 docker run -d --name bewohner-demo -p 8002:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-Then open:
+### Image pull is slow
 
-```text
-http://127.0.0.1:8002/
-```
+The first pull usually takes **1-5 minutes**, depending on your internet connection. Later pulls are usually faster because Docker uses cached layers.
 
----
-
-### The image pull is slow
-
-This is usually normal on the first run. Docker is downloading the complete application image. Later pulls should be faster because Docker reuses cached layers.
-
-You can confirm the image exists locally with:
+Check the local image:
 
 ```bash
 docker images ghcr.io/hosseinebi71/bewohner-app
 ```
 
----
+### App does not open immediately
 
-### The app does not open immediately
+The first container startup usually takes **10-30 seconds** after the image has been downloaded. On slower machines, allow up to **1 minute**.
 
-Check the logs:
+Check logs:
 
 ```bash
 docker logs -f bewohner-demo
 ```
 
-The first startup can take a few seconds because the container prepares demo users, demo content, permissions, and sample resident data.
-
----
-
 ### Login does not work
 
-First confirm that the app started correctly:
+Check the logs and use the exact credentials from the [Demo Accounts](#demo-accounts) section:
 
 ```bash
 docker logs bewohner-demo
 ```
 
-Then use the exact demo credentials from the [Demo accounts](#demo-accounts) section.
-
----
-
 ### Linux permission issue
 
-On some Linux systems, Docker commands require `sudo`:
+Use `sudo` with the same commands:
 
 ```bash
 sudo docker pull ghcr.io/hosseinebi71/bewohner-app:latest
 sudo docker run -d --name bewohner-demo -p 8001:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
-
----
-
-## Notes for reviewers
-
-- This is a Docker-based demo, not a source-code release.
-- The source repository is private.
-- The demo image is published through GitHub Container Registry.
-- The app runs locally on your machine inside Docker.
-- The demo uses SQLite inside the container for quick review.
-- Demo data is temporary and resets when the container is removed.
-- The `latest` tag points to the newest published demo image.
 
 ---
 
