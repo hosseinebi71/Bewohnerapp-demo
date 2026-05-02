@@ -2,7 +2,7 @@
 
 # BewohnerApp Demo
 
-### Run a modern resident communication platform locally with Docker.
+### Run a resident communication and staff management demo locally with Docker.
 
 [![Docker](https://img.shields.io/badge/Requirement-Docker%20Desktop-2496ED?logo=docker&logoColor=white)](https://www.docker.com/products/docker-desktop/)
 ![Windows](https://img.shields.io/badge/Windows-Ready-0078D4?logo=windows&logoColor=white)
@@ -10,7 +10,7 @@
 ![Linux](https://img.shields.io/badge/Linux-Ready-FCC624?logo=linux&logoColor=black)
 ![Docker Image](https://img.shields.io/badge/Docker%20Image-Ready-orange)
 
-[Quick Start](#quick-start) · [Demo Access](#demo-access) · [Try the Workflow](#try-the-workflow) · [Troubleshooting](#troubleshooting)
+[Quick Start](#quick-start) · [Demo Accounts](#demo-accounts) · [What-to-test](#what-to-test) · [Troubleshooting](#troubleshooting)
 
 </div>
 
@@ -20,7 +20,11 @@
 
 **BewohnerApp** is a resident communication and staff management platform for accommodation or residential environments.
 
-The demo starts with ready-to-test data: a temporary admin account, a sample resident, invite/activation codes, resident-facing content, and sample notifications.
+The demo includes three ready-to-test roles:
+
+- **Admin** for full administration
+- **Staff / Mitarbeiter** for the staff dashboard and daily workflows
+- **Resident / Bewohner** for the resident-facing app, inbox, appointments, and invite flow
 
 The demo runs from this Docker image:
 
@@ -67,48 +71,56 @@ Linux permission issue? Use `sudo` with the same commands.
 
 ---
 
-## Demo Access
+## Demo Accounts
 
-**Admin panel**
-
-```text
-http://127.0.0.1:8001/secure-admin-panel/
-```
-
-**Admin login**
-
-```text
-Username: demo-admin
-Password: DemoAdmin123!
-```
-
-**Public page**
-
-```text
-http://127.0.0.1:8001/
-```
-
-The container also prints the ready-to-test demo data in the logs:
+The demo creates three users automatically. The login details are printed in the container logs:
 
 ```bash
 docker logs bewohner-demo
 ```
 
-You will see the demo resident, invite code, activation code, and demo URLs there.
+### Admin
+
+```text
+URL:      http://127.0.0.1:8001/secure-admin-panel/
+Username: demo-admin
+```
+
+### Staff / Mitarbeiter
+
+Use this account to test the staff dashboard, residents, invite codes, and message creation.
+
+```text
+URL:      http://127.0.0.1:8001/login/
+Username: demo-staff
+```
+
+After login, open:
+
+```text
+http://127.0.0.1:8001/staff/
+```
+
+### Resident / Bewohner
+
+Use this account to test the resident-facing app, inbox, appointments, confirmations, and public content.
+
+```text
+URL:      http://127.0.0.1:8001/resident/login/
+Username: demo-resident
+```
+
+Resident home:
+
+```text
+http://127.0.0.1:8001/
+```
 
 ---
 
-## Try the Workflow
+## Demo Data
 
-### 1. Log in to the admin panel
-
-Open the admin panel and sign in with the demo admin account.
-
-A sample resident is already available, so you can immediately inspect the management workflow without building everything from zero.
-
-### 2. Review the demo resident
-
-Use the pre-created resident:
+The demo container creates ready-to-test data automatically:
 
 ```text
 Resident: Mina Karimi
@@ -117,23 +129,45 @@ Room: Haus A / 101
 Invite code: DEMO1001
 ```
 
-This resident is connected to the demo invite flow, activation code, notifications, inbox messages, and confirmation workflow.
+It also creates sample inbox messages, appointment messages, resident-facing content sections, and demo invite information.
 
-### 3. Test invite and activation
+---
 
-Check the container logs for the generated demo URLs:
+## What to Test
+
+### 1. Admin panel
+
+Log in as `demo-admin` and inspect the full administration area.
+
+### 2. Staff dashboard
+
+Log in as `demo-staff` and open the staff dashboard.
+
+From there, test the operational workflow:
+
+- review residents
+- create a message for a resident
+- check invite codes
+- inspect notification types and app sections
+- review help/contact requests
+
+### 3. Resident app
+
+Log in as `demo-resident` and test the resident-facing side:
+
+- open the resident home page
+- check Posteingang / inbox
+- check Termine / appointments
+- open resident-facing content sections
+- confirm important messages
+
+### 4. Invite / activation flow
+
+Use the demo invite code or the generated URLs from the logs to test resident onboarding:
 
 ```bash
 docker logs bewohner-demo
 ```
-
-The demo output includes the invite/activation information that can be used to test resident onboarding.
-
-### 4. Send or review notifications
-
-Open the resident's notifications and review the sample messages.
-
-The demo includes an important notification that requires confirmation, plus an appointment-style reminder. This shows how staff can send structured updates and how residents receive them in one place.
 
 ---
 
@@ -180,23 +214,13 @@ That means:
 - `8000` is the internal container port.
 - `8001` is the browser port on your machine.
 
-Open the admin panel:
-
-```text
-http://127.0.0.1:8001/secure-admin-panel/
-```
-
 If port `8001` is already busy, use another local port:
 
 ```bash
 docker run -d --name bewohner-demo -p 8002:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-Then open:
-
-```text
-http://127.0.0.1:8002/secure-admin-panel/
-```
+Then open the app on port `8002`.
 
 ---
 
@@ -236,7 +260,7 @@ Use another local port, for example `8002`:
 docker run -d --name bewohner-demo -p 8002:8000 ghcr.io/hosseinebi71/bewohner-app:latest
 ```
 
-### Admin login does not work
+### Login does not work
 
 Check the logs:
 
@@ -244,12 +268,12 @@ Check the logs:
 docker logs bewohner-demo
 ```
 
-The demo admin credentials and demo data are printed when the container starts.
+The demo users and generated demo information are printed when the container starts.
 
 ---
 
 <div align="center">
 
-**BewohnerApp Demo** · Docker-first · Ready-to-test data · Local setup in minutes
+**BewohnerApp Demo** · Admin · Staff · Resident · Ready-to-test data
 
 </div>
